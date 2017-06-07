@@ -96,7 +96,7 @@ class CEMM_Demo_Plugin_Public {
 
 		// Check if cached data is in the database. API responses are temporarly stored in the
 		// database to prevent to much API requests.
-		$body = get_site_transient($this->plugin_name . "_available_io");
+		$body = get_site_transient($this->plugin_name . "_cemm_realtime");
 
 		// Make API call if no cached data
 		if( ! $body ) {
@@ -124,7 +124,7 @@ class CEMM_Demo_Plugin_Public {
 					$body = $res->getBody();
 
 					// Cache the respone using the WP Transient API
-					set_site_transient($this->plugin_name . "_available_io", $body, 30);
+					set_site_transient($this->plugin_name . "_cemm_realtime", $body, 30);
 
 					// Return the API response
 					wp_send_json($body);
@@ -156,7 +156,7 @@ class CEMM_Demo_Plugin_Public {
 
 		// Check if cached data is in the database. API responses are temporarly stored in the
 		// database to prevent to much API requests.
-		$body = get_site_transient($this->plugin_name . "_available_io");
+		$body = get_site_transient($this->plugin_name . "_cemm_month");
 
 		// Make API call if no cached data
 		if( ! $body ) {
@@ -184,7 +184,7 @@ class CEMM_Demo_Plugin_Public {
 					$body = $res->getBody();
 
 					// Cache the respone using the WP Transient API
-					set_site_transient($this->plugin_name . "_available_io", $body, 30);
+					set_site_transient($this->plugin_name . "_cemm_month", $body, 30);
 
 					// Return the API response
 					wp_send_json($body);
