@@ -1,0 +1,8 @@
+.cemm-solar-info dl.cemm-solar-items dt.cemm-item-title {
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.cemm-solar-info dl.cemm-solar-items dd.cemm-item-value {
+	margin-bottom: 1.5em;
+}
