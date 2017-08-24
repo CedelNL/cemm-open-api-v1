@@ -27,7 +27,7 @@ class PostRequest extends CSC\Classes\HttpRequest {
 		 * with the @ prefix. As of PHP 5.5.0, the @ prefix is deprecated and files can be sent using CURLFile. The @ prefix can be disabled for safe passing of values beginning with @ by 
 		 * setting the CURLOPT_SAFE_UPLOAD option to TRUE.
 		 */
-		curl_setopt($this->curl, CURLOPT_POSTFIELDS, $this->postfields);
+		curl_setopt($this->curl, CURLOPT_POSTFIELDS, http_build_query($this->postfields));
 	}
 	
 }

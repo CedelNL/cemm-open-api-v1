@@ -184,8 +184,11 @@ class CEMM_Demo_Plugin_Admin {
 					// Get the body as associative array.
 					$body = $res->getBody();
 
-					// Cache the respone using the WP Transient API
-					set_site_transient($this->plugin_name . "_available_cemm", $body, 30);
+					// Do not cache promises!
+					if(! isset($body["promise"])){
+						// Cache the response using the WP Transient API
+						set_site_transient($this->plugin_name . "_available_cemm", $body, 30);
+					}
 
 					// Return the API response
 					wp_send_json($body);
@@ -226,7 +229,7 @@ class CEMM_Demo_Plugin_Admin {
 
 				$req = new GetRequest($conn);
 				$req->setPath('open-api/v1/cemm/io/');
-				$req->setParam('api_key', $api_key);
+				
 
 				$req->send();
 
@@ -237,9 +240,12 @@ class CEMM_Demo_Plugin_Admin {
 
 					// Get the body as associative array.
 					$body = $res->getBody();
-
-					// Cache the respone using the WP Transient API
-					set_site_transient($this->plugin_name . "_available_io", $body, 30);
+					
+					// Do not cache promises!
+					if(! isset($body["promise"])){
+						// Cache the respone using the WP Transient API
+						set_site_transient($this->plugin_name . "_available_io", $body, 30);
+					}
 
 					// Return the API response
 					wp_send_json($body);

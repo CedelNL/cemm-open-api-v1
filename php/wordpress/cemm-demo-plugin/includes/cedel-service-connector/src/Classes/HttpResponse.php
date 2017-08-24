@@ -70,6 +70,12 @@ class HttpResponse implements CSC\Interfaces\ResponseInterface {
 		 * Extract header and body from raw http response
 		 */
 		list($header, $body) = explode("\r\n\r\n", $raw, 2);
+		
+		// Check if the header contains HTTP 100 Continue header. If this
+		// exists the real header is still in the body.
+		if(strpos($header," 100 Continue")!==false){
+		    list( $header, $body) = explode( "\r\n\r\n", $body , 2);
+		}
 
 		$response->setHeaders($header);
 		$response->setBody($body);

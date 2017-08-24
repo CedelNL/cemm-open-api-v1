@@ -121,6 +121,14 @@ class HttpRequest implements CSC\Interfaces\RequestInterface {
 		return false;
 	}
 
+	private function getCurlHeaders(){
+		$headers = array();
+
+		foreach ($this->headers as $h => $value) {
+			$headers[] = $h.": ".$value;
+		}
+	}
+
 	public function getUrl(){
 		$url = $this->connection->getUrl();
 
@@ -147,9 +155,13 @@ class HttpRequest implements CSC\Interfaces\RequestInterface {
 
         // set url 
         curl_setopt($this->curl, CURLOPT_URL, $this->getUrl());
-        curl_setopt($this->curl, CURLOPT_HTTPHEADER, $this->headers);
+        curl_setopt($this->curl, CURLOPT_HTTPHEADER, $this->getCurlHeaders());
         curl_setopt($this->curl, CURLOPT_VERBOSE, 0);
 		curl_setopt($this->curl, CURLOPT_HEADER, 1);
+
+		// Timeout settings. cUrl waits indefinitely if no timeouts are set
+		curl_setopt($this->curl, CURLOPT_CONNECTTIMEOUT ,5); 
+		curl_setopt($this->curl, CURLOPT_TIMEOUT, 10); //timeout in seconds
 
         //return the transfer as a string 
         curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, 1); 
@@ -177,7 +189,7 @@ class HttpRequest implements CSC\Interfaces\RequestInterface {
 
         $this->curl = null;
 
-        if($this->curl_error || $this->response_code != 200) {
+        if($this->curl_error || ! in_array($this->response_code, array(200,202)) ) {
         	return $this->handleCurlError();
         }
         else {
@@ -227,7 +239,8 @@ class HttpRequest implements CSC\Interfaces\RequestInterface {
 	
 
 	public function hasError() {
-		if( $this->response_code != 200 ){
+		if($this->curl_error ||  ! in_array($this->response_code, array(200,202))) {
+
 			return true;
 		}
 

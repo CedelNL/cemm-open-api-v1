@@ -123,8 +123,12 @@ class CEMM_Demo_Plugin_Public {
 					// Get the body as associative array.
 					$body = $res->getBody();
 
-					// Cache the respone using the WP Transient API
-					set_site_transient($this->plugin_name . "_cemm_realtime", $body, 30);
+
+					// Do not cache promises!
+					if(! isset($body["promise"])){
+						// Cache the respone using the WP Transient API
+						set_site_transient($this->plugin_name . "_cemm_realtime", $body, 30);
+					}
 
 					// Return the API response
 					wp_send_json($body);
@@ -166,7 +170,7 @@ class CEMM_Demo_Plugin_Public {
 		    if( !empty($api_key) ){
 		    	// HttpsConnection is provided by the CedelServiceConnector lib.
 			 	$conn = new HttpsConnection();
-				$conn->setHost("https://mijn.cemm.nl");
+				$conn->setHost("https://mijn.cemm.nl/");
 
 				$req = new GetRequest($conn);
 				$req->setPath('open-api/v1/cemm/'.$options['cemm'].'/s01/data/month/');
@@ -182,9 +186,12 @@ class CEMM_Demo_Plugin_Public {
 
 					// Get the body as associative array.
 					$body = $res->getBody();
-
-					// Cache the respone using the WP Transient API
-					set_site_transient($this->plugin_name . "_cemm_month", $body, 30);
+					
+					// Do not cache promises!
+					if(! isset($body["promise"])){
+						// Cache the respone using the WP Transient API
+						set_site_transient($this->plugin_name . "_cemm_month", $body, 30);
+					}
 
 					// Return the API response
 					wp_send_json($body);

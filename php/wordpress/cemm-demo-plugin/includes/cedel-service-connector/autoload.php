@@ -18,7 +18,9 @@
  * 
  * @author 	Tom Klabbers <tomklabbers@cedel.nl>
  * 
- * @version 1.0
+ * @version 1.2.2
+ * 
+ * 
  */
 
 /*
