@@ -229,8 +229,8 @@ class CEMM_Demo_Plugin_Admin {
 
 				$req = new GetRequest($conn);
 				$req->setPath('open-api/v1/cemm/io/');
+				$req->setParam('api_key', $api_key);
 				
-
 				$req->send();
 
 				// Check if a valid response is returned by the API

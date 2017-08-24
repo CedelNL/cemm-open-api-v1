@@ -54,7 +54,7 @@ jQuery(document).ready(function($) {
 
 	    setInterval(function(){
 	        GetRealtimeSolarData();
-	    }, 30000);
+	    }, 10000);
 	}
 
 	if( monthSolar.length || todaySolar.length ){
