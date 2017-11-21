@@ -26,8 +26,10 @@ jQuery(document).ready(function($) {
 	});
 });
 
-function UpdateCemms(){
+function UpdateCemms(response){
 	var cemms = response.data;
+	// Selectbox element with the available CEMM uids
+	var el = jQuery("#"+cdp_vars.plugin_name+"-cemm");
 		
 	for(var i=0; i<cemms.length; i++){
 		var uid = cemms[i].uid;
